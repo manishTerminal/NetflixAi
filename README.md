@@ -1,3 +1,7 @@
-# Making a Netflix clone with GPT intigration
+## Making a Netflix clone with GPT intigration
 
-work in progress...
+# Features -
+
+- Header
+- Body
+- login/Signup

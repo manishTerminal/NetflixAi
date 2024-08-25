@@ -1,9 +1,10 @@
+import Body from "./components/Body"
 
 function App() {
 
   return (
     <>
-     <h1>Netflix</h1>
+     <Body/>
     </>
   )
 }

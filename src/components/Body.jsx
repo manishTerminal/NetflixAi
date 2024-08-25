@@ -4,9 +4,9 @@ import appRoute from "../routes/Routes";
 
 function Body() {
   return (
-    <>
+    <div>
       <RouterProvider router={appRoute}></RouterProvider>
-    </>
+    </div>
   );
 }
 

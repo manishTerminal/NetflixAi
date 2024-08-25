@@ -48,7 +48,7 @@ function Login() {
           <p className="py-4 my-4">
             {isSignInForm ? "New to Netflix? " : "Already Registered? "}
             <span onClick={handleForm} className="font-semibold cursor-pointer">
-              Sign up now
+              {isSignInForm ? "Sign up now" : "Sign In now"}
             </span>
           </p>
         </div>

@@ -1,14 +1,12 @@
-import React from 'react'
-import Header from './Header'
-
-
+import React from "react";
+import Header from "./Header";
 
 function Browse() {
   return (
-    <div className='bg-slate-900 h-screen w-full'>
-      <Header/>
+    <div className="bg-slate-900 h-screen w-full">
+      <Header />
     </div>
-  )
+  );
 }
 
-export default Browse
+export default Browse;

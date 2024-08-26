@@ -1,15 +1,75 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import handleValidation from "../utils/FormValidation";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/Firebase";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleAuth = () => {
+    const message = handleValidation(
+      email.current.value,
+      password.current.value
+    );
+    setErrorMessage(message);
+
+    if (!isSignInForm && !errorMessage) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorMessage);
+        });
+    }
+
+    if (isSignInForm && !errorMessage) {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          navigate("/browse");
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
+  };
 
   const handleForm = () => {
     setIsSignInForm(!isSignInForm);
+    setErrorMessage(null)
   };
+
   return (
     <>
-      <div>
+      <div className="w-screen">
         <Header />
         <div className="relative h-full">
           <img
@@ -18,7 +78,10 @@ function Login() {
           />
         </div>
 
-        <form className="absolute py-6 bg-opacity-80 bg-black text-white w-4/5 sm:w-4/5 lg:w-1/3 top-36 mx-auto left-0 right-0 rounded-xl flex justify-center items-center z-20">
+        <form
+          className="absolute py-6 bg-opacity-80 bg-black text-white w-4/5 sm:w-4/5 lg:w-1/3 top-36 mx-auto left-0 right-0 rounded-xl flex justify-center items-center z-20"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <div className="w-4/5">
             <h2 className="py-4 mt-4 mb-2 font-bold text-3xl">
               {isSignInForm ? "Sign In" : "Sign Up"}
@@ -34,15 +97,21 @@ function Login() {
               className="p-4 my-2 w-full rounded-md bg-black bg-opacity-60 border border-gray-200 "
               type="text"
               placeholder="Email or mobile number"
+              ref={email}
             />
             <br />
             <input
               className="p-4 my-2 w-full rounded-md bg-black bg-opacity-60 border border-gray-200"
               type="password"
               placeholder="Password"
+              ref={password}
             />
             <br />
-            <button className="p-2 my-6 w-full bg-[#E50914] rounded-md font-medium">
+            <p className="text-red-500 font-medium">{errorMessage}</p>
+            <button
+              onClick={handleAuth}
+              className="p-2 my-6 w-full bg-[#E50914] rounded-md font-medium"
+            >
               {isSignInForm ? "Sign In" : "Sign Up"}
             </button>
             <p className="py-4 mb-10">
@@ -57,7 +126,7 @@ function Login() {
           </div>
         </form>
       </div>
-      <footer className="h-72 bg-black flex text-white justify-center items-end">
+      <footer className="h-72 bg-black flex text-white justify-center items-end w-screen">
         <p className="mb-4">Build with 💌 by Manish </p>
       </footer>
     </>

@@ -4,8 +4,11 @@ import user from "../assets/img/user.png";
 import { auth } from "../utils/Firebase";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import appStore from "../redux/AppStore";
 
 function Header() {
+  const selector = useSelector((store) => store.user);
   const navigate = useNavigate();
 
   const handleLogOut = () => {
@@ -13,7 +16,7 @@ function Header() {
       .then(() => {
         // Sign-out successful.
         navigate("/");
-        console.log("user logged out")
+        console.log("user logged out");
       })
       .catch((error) => {
         // An error happened.
@@ -26,12 +29,14 @@ function Header() {
       <div>
         <img className="w-48 mt-2 ml-36" src={netflixLogo} />
       </div>
-      <div className="flex justify-center items-center mr-4">
-        <img className="w-12 h-12 m-2" src={user} />
-        <button onClick={handleLogOut} className="text-white font-bold ">
-          Log Out
-        </button>
-      </div>
+      {selector && (
+        <div className="flex justify-center items-center mr-4">
+          <img className="w-12 h-12 m-2" src={user} />
+          <button onClick={handleLogOut} className="text-white font-bold ">
+            Log Out - {selector.displayName}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

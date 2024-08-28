@@ -27,7 +27,9 @@ function Login() {
     );
     setErrorMessage(message);
 
-    if (!isSignInForm && !errorMessage) {
+    if (message) return;
+
+    if (!isSignInForm) {
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -59,7 +61,7 @@ function Login() {
       console.log("bug " + auth.currentUser);
     }
 
-    if (isSignInForm && !errorMessage) {
+    if (isSignInForm) {
       signInWithEmailAndPassword(
         auth,
         email.current.value,

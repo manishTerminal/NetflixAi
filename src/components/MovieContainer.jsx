@@ -1,37 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TitleContainer from "./TitleContainer";
 import TrailerContainer from "./TrailerContainer";
-import { options } from "../utils/Constants";
-import { useDispatch, useSelector } from "react-redux";
-import { addMovie } from "../redux/movieSlice";
+import { useSelector } from "react-redux";
+import useNowPlayingMovie from "../hooks/useNowPlayingMovie";
 
 const MovieContainer = () => {
-  const dispatch = useDispatch();
-  const selector = useSelector((store) => store.movie);
+  const trailer = useSelector((store) => store.movie.nowPlayingMovie);
 
-  const nowPlayingData = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?&page=1",
-      options
-    );
+  useNowPlayingMovie();
 
-    const json = await data.json();
-    dispatch(addMovie(json.results));
-  };
-
-  useEffect(() => {
-    nowPlayingData();
-  }, []);
-
-  if (selector.nowPlayingMovie == null) return;
+  if (trailer == null) return;
 
   return (
     <div className="overflow-hidden ">
       <TitleContainer
-        title={selector?.nowPlayingMovie[13]?.original_title}
-        description={selector?.nowPlayingMovie[13]?.overview}
+        title={trailer[13]?.original_title}
+        description={trailer[13]?.overview}
       />
-      <TrailerContainer id={selector?.nowPlayingMovie[13]?.id} />
+      <TrailerContainer id={trailer[13]?.id} />
     </div>
   );
 };

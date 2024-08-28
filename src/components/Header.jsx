@@ -13,7 +13,7 @@ function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
@@ -24,6 +24,8 @@ function Header() {
         navigate("/");
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   const handleLogOut = () => {
@@ -39,12 +41,18 @@ function Header() {
   return (
     <div className="absolute bg-gradient-to-b from-black w-full z-20 flex justify-between">
       <div>
-        <img className="w-48 mt-2 ml-36" src={netflixLogo} />
+        <img className="w-48 mt-2 ml-8" src={netflixLogo} />
       </div>
       {selector && (
         <div className="flex justify-center items-center mr-4">
-          <img className="w-12 h-12 m-2" src={user} />
-          <button onClick={handleLogOut} className="text-white font-bold ">
+          <img
+            className="w-12 h-12 m-2 cursor-pointer"
+            src={user}
+          />
+          <button
+            onClick={handleLogOut}
+            className="text-white font-bold "
+          >
             Log Out - {selector.displayName}
           </button>
         </div>

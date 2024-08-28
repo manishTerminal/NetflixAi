@@ -1,10 +1,14 @@
 import React from "react";
 import Header from "./Header";
+import MovieContainer from "./MovieContainer";
+import MovieListContainer from "./MovieListContainer";
 
 function Browse() {
   return (
-    <div className="bg-slate-900 h-screen w-full">
+    <div className="h-screen w-full">
       <Header />
+      <MovieContainer />
+      <MovieListContainer />
     </div>
   );
 }

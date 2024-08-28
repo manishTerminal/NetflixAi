@@ -10,7 +10,7 @@ const TrailerContainer = ({ id }) => {
     );
 
     const json = await data.json();
-    console.log(json.results);
+  
     const trailer = json.results.filter(
       (item) => item.name == "Official Trailer"
     );
@@ -21,7 +21,7 @@ const TrailerContainer = ({ id }) => {
     getTrailerData();
   }, []);
 
-  console.log(trailer);
+ 
 
   return (
     

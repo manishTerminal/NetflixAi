@@ -4,7 +4,7 @@ import play from "../assets/img/play.png";
 
 const TitleContainer = ({ title, description }) => {
   return (
-    <div className="pt-[17%] px-12 absolute bg-gradient-to-r from-black w-full aspect-video text-white ">
+    <div className="pt-[10%] px-12 absolute bg-gradient-to-r from-black w-full aspect-video text-white ">
       <h1 className="font-bold text-2xl mb-2">{title}</h1>
       <p className="w-1/3">{description}</p>
       <div className="flex font-semibold my-4">

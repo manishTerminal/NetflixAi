@@ -17,7 +17,6 @@ const MovieContainer = () => {
 
     const json = await data.json();
     dispatch(addMovie(json.results));
-    console.log(json.results);
   };
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import MovieListContainer from "./MovieListContainer";
 
 function Browse() {
   return (
-    <div className="h-screen w-full">
+    <div className="bg-black">
       <Header />
       <MovieContainer />
       <MovieListContainer />

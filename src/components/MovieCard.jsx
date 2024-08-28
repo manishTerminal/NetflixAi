@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { IMAGE_URL } from "../utils/Constants";
 
-const MovieCard = () => {
+const MovieCard = ({ posterpath }) => {
   return (
-    <div>MovieCard</div>
-  )
-}
+    <div className="w-36 m-2">
+      <img src={IMAGE_URL + posterpath} />
+    </div>
+  );
+};
 
-export default MovieCard
+export default MovieCard;

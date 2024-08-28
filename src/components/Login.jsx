@@ -46,8 +46,6 @@ function Login() {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-
-              console.log(user);
             })
             .catch((error) => {
               console.log(error);
